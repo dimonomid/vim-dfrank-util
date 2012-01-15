@@ -1,17 +1,15 @@
+" 
+" this is plugin-library: DfrankUtil
+"
 
 let g:dfrank#util#version     = 100
 let g:dfrank#util#loaded      = 1
-
-function! dfrank#util#init()
-   " dummy func
-endfunction
 
 " Trim(sString)
 " trims spaces from begin and end of string
 function! dfrank#util#Trim(sString)
    return substitute(substitute(a:sString, '^\s\+', '', ''), '\s\+$', '', '')
 endfunction
-
 
 " returns whether or not file exists in list
 function! dfrank#util#IsFileExistsInList(aList, sFilename)
@@ -24,7 +22,8 @@ endfunction
 
 
 " ParsePath(sPath)
-"   changing '\' to '/' or vice versa depending on OS (MS Windows or not) also calls simplify()
+"   changes '\' to '/' or vice versa depending on OS (MS Windows or not), 
+"   also calls simplify(), removes last slash
 function! dfrank#util#ParsePath(sPath)
 
    if (has('win32') || has('win64'))
@@ -47,8 +46,6 @@ function! dfrank#util#ParsePath(sPath)
    return l:sPath
 endfunction
 
-
-
 " concatenates two lists preventing duplicates
 function! dfrank#util#ConcatLists(lExistingList, lAddingList)
    let l:lResList = a:lExistingList
@@ -60,10 +57,12 @@ function! dfrank#util#ConcatLists(lExistingList, lAddingList)
    return l:lResList
 endfunction
 
+" returns all except last item of path
 function! dfrank#util#GetPathHeader(sPath)
    return substitute(a:sPath, '\v^(.*)[\\/]([^\\/]+)[\\/]{0,1}$', '\1', '')
 endfunction
 
+" returns last item of path
 function! dfrank#util#GetPathLastItem(sPath)
    return substitute(a:sPath, '\v^.*[\\/]([^\\/]+)[\\/]{0,1}$', '\1', '')
 endfunction
@@ -129,6 +128,7 @@ endfunction
 
 
 
+" specify default values for non-specified params in dictionary
 function! dfrank#util#SetDefaultValues(dParams, dDefParams)
    let l:dParams = a:dParams
 
@@ -153,5 +153,9 @@ function! dfrank#util#GetKeyFromPath(sPath)
    endif
 
    return l:sKey
+endfunction
+
+function! dfrank#util#init()
+   " dummy func
 endfunction
 
