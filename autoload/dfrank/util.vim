@@ -2,7 +2,7 @@
 " this is plugin-library: DfrankUtil
 "
 
-let g:dfrank#util#version     = 101
+let g:dfrank#util#version     = 102
 let g:dfrank#util#loaded      = 1
 
 if (has('win32') || has('win64'))
