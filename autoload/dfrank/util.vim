@@ -65,12 +65,18 @@ endfunction
 
 " returns all except last item of path
 function! dfrank#util#GetPathHeader(sPath)
-   return substitute(a:sPath, '\v^(.*)[\\/]([^\\/]+)[\\/]{0,1}$', '\1', '')
+   let l:sPath = substitute(a:sPath, '[\\/]$', '', '')
+   return fnamemodify(l:sPath, ":h")
+   
+   "return substitute(a:sPath, '\v^(.*)[\\/]([^\\/]+)[\\/]{0,1}$', '\1', '')
 endfunction
 
 " returns last item of path
 function! dfrank#util#GetPathLastItem(sPath)
-   return substitute(a:sPath, '\v^.*[\\/]([^\\/]+)[\\/]{0,1}$', '\1', '')
+   let l:sPath = substitute(a:sPath, '[\\/]$', '', '')
+   return fnamemodify(l:sPath, ":t")
+
+   "return substitute(a:sPath, '\v^.*[\\/]([^\\/]+)[\\/]{0,1}$', '\1', '')
 endfunction
 
 
