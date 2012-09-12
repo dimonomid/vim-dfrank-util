@@ -1,8 +1,12 @@
 " 
 " this is plugin-library: DfrankUtil
 "
+" changelog:
+"
+" 1.03: fixed issue on Windows machines with noshellslash.
+"
 
-let g:dfrank#util#version     = 102
+let g:dfrank#util#version     = 103
 let g:dfrank#util#loaded      = 1
 
 if (has('win32') || has('win64'))
@@ -107,7 +111,7 @@ function! dfrank#util#IsAbsolutePath(path)
       return 2
    endif
    let path=expand(a:path) " Expand any environment variables that might be in the path
-   if path[0] == '/' || path[0] == '~' || path[0] == '\\' || path[1] == ':'
+   if path[0] == '/' || path[0] == '~' || path[0] == '\' || path[1] == ':'
       return 1
    endif
    return 0
@@ -127,7 +131,8 @@ function! dfrank#util#BufName(mValue)
    " drive letter, e.g. something like that: "/path/to/file", but it should be
    " "D:/path/to/file". So, we need to add drive letter manually.
    if has('win32') || has('win64')
-      if strpart(l:sFilename, 0, 1) == '/' && strpart(getcwd(), 1, 1) == ':'
+      let sFirstLetter = strpart(l:sFilename, 0, 1)
+      if (sFirstLetter == '/' || sFirstLetter == '\') && strpart(getcwd(), 1, 1) == ':'
          let l:sFilename = strpart(getcwd(), 0, 2).l:sFilename
       endif
    endif
